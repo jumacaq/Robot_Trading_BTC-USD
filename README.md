@@ -19,7 +19,7 @@ Utilizaremos el Jupyter Notebook que ofrece Google Colaboratory, también necesi
 ### Obtención de datos: :open_file_folder:
 Necesitaremos acceder a la API de Yahoo Finance que proporciona datos históricos de precios de Bitcoin en formato JSON, para esto usaremos la biblioteca yfinance de Python,cuya documentación esta en el siguiente enlace: https://pypi.org/project/yfinance/ <br> 
 
-![image](https://github.com/Valamca/Robot_Trading/assets/129345721/b296ee83-768f-4269-a5d0-f451be1b0850)
+![image](https://github.com/jumacaq/Robot_Trading_BTC-USD/blob/main/yfinance.png))
 
 Luego, utilizando la biblioteca BeautifulSoup realizaremos el Web Scraping de la página https://coinmarketcap.com/ para extraer el precio actual del Bitcoin BTC en dólares USD y la variación de su precio en la última hora, luego crearemos una función que retornará el precio actualizado del Bitcoin y también su tendencia <br>
 <br>
