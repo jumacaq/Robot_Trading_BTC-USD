@@ -37,5 +37,7 @@ Se utiliza la librería Matplotlib para crear una función que retornará el gr�
 
 ### Automatización: :arrows_counterclockwise:
 Finalmente, ahora que se tienen: la extracción de información,  la limpieza de datos, la visualización, y el algoritmo de decisión, es hora de automatizar el proceso. Se utiliza la librería de Python "time" para ejecutar el algoritmo de decisión cada 5 minutos y actualizar el gráfico, además del método clear_output para limpiar el gráfico antes de volver a iniciar el ciclo.<br>
+
+#aluraChallengeRobotTrading.
 <br>
 
