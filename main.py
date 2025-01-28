@@ -8,7 +8,7 @@ import time
 from datetime import datetime, timedelta
 import requests
 from bs4 import BeautifulSoup
-from IPython.display import clear_output
+
 
 # Configuración de la página principal
 # Cargar la imagen
@@ -164,22 +164,36 @@ def visualizacion():
   st.pyplot(plt)
 
 # Ejecución principal
-while True:
-    try:
-        clear_output()
-        importar_base_bitcoin()
-        extraer_tendencias()
-        limpieza_datos()
-        calcular_sma()  # Asegúrate de llamar a calcular_sma() antes de tomar_decisiones()
-        tomar_decisiones()
-        st.write(f"**Precio actual de Bitcoin:** ${precio_actual}")
-        st.write(f"**Tendencia:** {tendencia}")
-        st.write(f"**Precio promedio:** ${media_bitcoin}")
-        st.write(f"**Parámetros de SMA:** Corto = {sma_short}, Largo = {sma_long}")
-        st.write(f"**Decisión del algoritmo:** {algoritmo_decision}")
-        st.write("**Iniciando ciclo de análisis:**")
-        visualizacion()
-        time.sleep(300)
-    except Exception as e:
-        st.error(f"Error: {e}")
-        time.sleep(300)
+def main():
+    placeholder = st.empty()  # Contenedor vacío para limpiar la salida
+
+    with placeholder.container():
+        st.write("Este es un mensaje que se actualiza periódicamente.")
+        
+        try:
+            # Llamar a las funciones de tu aplicación
+            importar_base_bitcoin()
+            extraer_tendencias()
+            limpieza_datos()
+            calcular_sma()  # Asegúrate de llamar a calcular_sma() antes de tomar_decisiones()
+            tomar_decisiones()
+
+            # Mostrar los resultados
+            st.write(f"**Precio actual de Bitcoin:** ${precio_actual}")
+            st.write(f"**Tendencia:** {tendencia}")
+            st.write(f"**Precio promedio:** ${media_bitcoin}")
+            st.write(f"**Parámetros de SMA:** Corto = {sma_short}, Largo = {sma_long}")
+            st.write(f"**Decisión del algoritmo:** {algoritmo_decision}")
+            st.write("**Iniciando ciclo de análisis:**")
+            visualizacion()
+
+        except Exception as e:
+            st.error(f"Error: {e}")
+
+    # Esperar 5 minutos (300 segundos) antes de reiniciar el script
+    time.sleep(300)
+    st.experimental_rerun()  # Reiniciar la aplicación después de la espera
+
+# Ejecutar la aplicación
+if __name__ == "__main__":
+    main()
