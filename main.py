@@ -185,7 +185,10 @@ def main():
 
     # Esperar 5 minutos (300 segundos) antes de reiniciar el script
     time.sleep(300)
-    st.experimental_rerun()  # Reiniciar la aplicación después de la espera
+    try:
+        st.rerun()  # Reiniciar la aplicación
+    except Exception as e:
+        st.error(f"Error al reiniciar la app: {e}")
 
 # Ejecutar la aplicación
 if __name__ == "__main__":
