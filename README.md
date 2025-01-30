@@ -42,5 +42,5 @@ Finalmente, ahora que se tienen: la extracción de información,  la limpieza de
 
 ### Despliegue en streamlit:
 Este robot trading esta desplegado en streamlit [Visitalo aquí](https://robot-trading-btc-usd.streamlit.app/) que tiene una sección lateral izquierda para ajustar los parámetros de las medias móviles y una sección principal donde se muestran datos actualizados cada 5 minutos del precio de bitcoin, la tendencia, el precio promedio de los últimos 14 días, los parámetros de las medias móviles, la decisión de compra/ venta /espera y el gráfico de visualización.
-
+![](https://github.com/jumacaq/Robot_Trading_BTC-USD/blob/main/streamlitBTC.png)
 
