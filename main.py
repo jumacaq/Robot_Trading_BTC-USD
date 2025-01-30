@@ -112,10 +112,10 @@ def tomar_decisiones():
     latest_data = df_bitcoin_limpio.iloc[-1]
     sma_corto = latest_data['SMA_short']
     sma_largo = latest_data['SMA_long']
-    if sma_corto > sma_largo and precio_actual < media_bitcoin and tendencia == 'alta':
+    if sma_corto > sma_largo and tendencia == 'alta':
         algoritmo_decision = 'Comprar'
         color = '#228b22'
-    elif sma_corto < sma_largo and precio_actual >= media_bitcoin and tendencia == 'baja':
+    elif sma_corto < sma_largo and tendencia == 'baja':
         algoritmo_decision = 'Vender'
         color = '#dc143c'
     else:
@@ -128,39 +128,32 @@ def tomar_decisiones():
 #Creamos la función visualizacion()
 def visualizacion():
   global df_bitcoin_limpio, precio_actual, tendencia, media_bitcoin, algoritmo_decision
-  plt.clf()  # Limpia la figura actual
-  df_bitcoin_limpio['Average'] = media_bitcoin
-  #Algoritmo para dar color al texto de la variable 'algoritmo_decision'
-  if algoritmo_decision == 'Vender':
-      color_decision = 'green'
-  elif algoritmo_decision =='Comprar':
-      color_decision = 'red'
-  else:
-      color_decision = '#ff8c00'
-  #Configuramos el tamaño del gráfico en una proporción de 16x5,damos color al fondo del gráfico
-  plt.rc('figure',figsize = (15,8),facecolor='#E8DEE1')
+  #Configuramos el tamaño del gráfico en una proporción de 15x8, damos color al fondo del gráfico
+  plt.figure(figsize=(15,8))
+  #Configuración para dar color a las líneas de precio de cierre, SMA_short y SMA_long y señal de decisión
+  plt.plot(df_bitcoin_limpio.index, df_bitcoin_limpio['Close'], label='Precio de Cierre', color='Gray', alpha=0.7)
+  plt.plot(df_bitcoin_limpio.index, df_bitcoin_limpio['SMA_short'], label='SMA_short', color='Blue',alpha=0.8)
+  plt.plot(df_bitcoin_limpio.index, df_bitcoin_limpio['SMA_long'], label='SMA_long', linestyle='-', color='Orange',alpha=0.8)
+  ultimo_precio = df_bitcoin_limpio['Close'].iloc[-1]
+  plt.scatter(df_bitcoin_limpio.index[-1], ultimo_precio, color=color, label='Señal Actual', s=200, marker='v')
+
   #Agregamos un título al gráfico y a los ejes x,y
-  plt.title('GRAFICO PARA DECIDIR COMPRA-VENTA DE BITCOIN',fontsize=20,weight = 'bold')
+  plt.title('Señal de compra/venta en base a SMA con dataset original',fontsize=15,weight = 'bold')
   plt.xlabel('Fecha')
   plt.ylabel('Precio Actual en USD')
-  #Con el método plot()dibujamos una línea en el gráfico, con los datos del índice y la columna 'Close' de la base
-  #df_bitcoin,nombramos etiqueta,damos estilo y color a dicha línea
-  plt.plot(df_bitcoin_limpio.index, df_bitcoin_limpio['Close'], label='Precio de Cierre', linestyle='-', color='Gray', alpha=0.7)
-  #Con el método plot()dibujamos una línea en el gráfico, con los datos del índice y la columna 'Promedio' de la base
-  #df_bitcoin,nombramos etiqueta y damos estilo y color
-  plt.plot(df_bitcoin_limpio.index, df_bitcoin_limpio['Average'], label='Precio Promedio', linestyle='dashdot', color='Red')
-  #Creating SMA_short line
-  plt.plot(df_bitcoin_limpio.index, df_bitcoin_limpio['SMA_short'], label='SMA_short', linestyle='-', color='Blue',alpha=0.8)
-  #Creating SMA_long line
-  plt.plot(df_bitcoin_limpio.index, df_bitcoin_limpio['SMA_long'], label='SMA_long', linestyle='-', color='Orange',alpha=0.8)
-  #Con el método annotate()muestra un mensaje dentro del gráfico con la decisión calculada del algoritmo_decision,
-  #damos al texto tamaño, color y resaltamos
-  plt.annotate(f'Decision: {algoritmo_decision}',xy=(df_bitcoin_limpio.index[-1], 103000), fontsize=12,
-               color=color_decision,weight = 'bold')
   #Agregamos leyendas al gráfico
   plt.legend()
   #Agregamos cuadrículas al gráfico, para observar mejor las intersecciones de los ejes
   plt.grid(True,alpha=0.3)
+
+  # Agrega un cuadro de texto a la señal de decisión
+  plt.text(0.02,0.98,f'Decision actual {algoritmo_decision}',
+           transform=plt.gca().transAxes,
+           bbox=dict(facecolor='yellow', alpha=0.3),
+           verticalalignment='top'          )
+  #Ajustamos los elementos dentro del gráfico
+  plt.tight_layout()
+  
   st.pyplot(plt)
 
 # Ejecución principal
